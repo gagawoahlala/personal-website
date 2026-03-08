@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* Tailwind v4 defaults to media-query dark mode. This overrides it to use
+   class-based dark mode so ThemeProvider's .dark class on <html> works. */
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --header-position: sticky;
+  --header-inner-position: sticky;
+  --header-height: 180px;
+  --header-mb: -116px;
+  --content-offset: 116px;
+  --text-sm--line-height: 1.5rem;
+  --avatar-image-transform: translate3d(0rem, 0, 0) scale(1);
+  --avatar-border-transform: translate3d(-0.2222222222222222rem, 0, 0) scale(1.7777777777777777);
+  --avatar-border-opacity: 0;
+  --header-top: 0px;
+  --avatar-top: 0px;
+  --text-5xl--line-height: 3.5rem;
+  --text-base--line-height: 1.75rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+:lang(ar) {
+  font-family: 'Segoe UI', Tahoma, Arial, system-ui, sans-serif;
+}
