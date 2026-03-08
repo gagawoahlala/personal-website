@@ -17,7 +17,7 @@ export const zh: UITranslations = {
     toggle: '切换语言',
   },
   footer: {
-    copyright: 'Spencer Sharp。保留所有权利。',
+    copyright: 'Yikun Huang。保留所有权利。',
   },
   newsletter: {
     title: '保持关注',
@@ -44,8 +44,6 @@ export const zh: UITranslations = {
       headline: '软件工程师、地理爱好者和语言探索者。',
       bio: '我是 Quincy，一名驻达拉斯的前端/全栈软件工程师。我为网络构建应用，我关心你——我的用户。',
       social: {
-        x: '在 X 上关注',
-        instagram: '在 Instagram 上关注',
         github: '在 GitHub 上关注',
         linkedin: '在 LinkedIn 上关注',
       },
@@ -59,10 +57,8 @@ export const zh: UITranslations = {
       ],
       portrait: 'Quincy 的照片',
       social: {
-        x: '在 X 上关注',
-        instagram: '在 Instagram 上关注',
-        github: '在 GitHub 上关注',
-        linkedin: '在 LinkedIn 上关注',
+        github: '在 GitHub 上加好友',
+        linkedin: '在 LinkedIn 上联系',
         email: '发送邮件',
       },
     },

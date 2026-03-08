@@ -57,8 +57,6 @@ export interface UITranslations {
       headline: string
       bio: string
       social: {
-        x: string
-        instagram: string
         github: string
         linkedin: string
       }
@@ -68,8 +66,6 @@ export interface UITranslations {
       bio: string[]
       portrait: string
       social: {
-        x: string
-        instagram: string
         github: string
         linkedin: string
         email: string

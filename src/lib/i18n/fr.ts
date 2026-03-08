@@ -17,7 +17,7 @@ export const fr: UITranslations = {
     toggle: 'Changer de langue',
   },
   footer: {
-    copyright: 'Spencer Sharp. Tous droits réservés.',
+    copyright: 'Yikun Huang. Tous droits réservés.',
   },
   newsletter: {
     title: 'Rester informé',
@@ -44,8 +44,6 @@ export const fr: UITranslations = {
       headline: "Ingénieur logiciel, passionné de géographie et d'études linguistiques.",
       bio: "Je suis Quincy, ingénieur logiciel frontend/fullstack basé à Dallas. Je construis des choses pour le web, et je pense à vous, mon utilisateur.",
       social: {
-        x: 'Suivre sur X',
-        instagram: 'Suivre sur Instagram',
         github: 'Suivre sur GitHub',
         linkedin: 'Suivre sur LinkedIn',
       },
@@ -59,10 +57,8 @@ export const fr: UITranslations = {
       ],
       portrait: 'Portrait de Quincy',
       social: {
-        x: 'Suivre sur X',
-        instagram: 'Suivre sur Instagram',
-        github: 'Suivre sur GitHub',
-        linkedin: 'Suivre sur LinkedIn',
+        github: "Être ami sur GitHub",
+        linkedin: 'Se connecter sur LinkedIn',
         email: 'Envoyer un e-mail',
       },
     },

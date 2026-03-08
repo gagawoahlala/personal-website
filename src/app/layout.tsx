@@ -19,11 +19,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s - Spencer Sharp',
-    default: 'Spencer Sharp - Software designer, founder, and amateur astronaut',
+    template: '%s - Yikun Huang',
+    default: 'Quincy - Software engineer, Geography Lover and Linguistic Enthusiast',
   },
   description:
-    "I'm Spencer, a software designer and entrepreneur based in New York City.",
+    "Quincy Huang- Software engineer, Senior Frontend Software Engineer, Senior fullstack software engineer. Build things with AI",
 }
 
 export default function RootLayout({

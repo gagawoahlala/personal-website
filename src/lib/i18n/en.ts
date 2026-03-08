@@ -17,7 +17,7 @@ export const en: UITranslations = {
     toggle: 'Change language',
   },
   footer: {
-    copyright: 'Spencer Sharp. All rights reserved.',
+    copyright: 'Yikun Huang. All rights reserved.',
   },
   newsletter: {
     title: 'Stay up to date',
@@ -44,8 +44,6 @@ export const en: UITranslations = {
       headline: 'Software engineer, Geography Lover and Linguistic Enthusiast.',
       bio: "I'm Quincy, a frontend/fullstack software Engineer based in Dallas. I build things for the web, and I care about you, my user.",
       social: {
-        x: 'Follow on X',
-        instagram: 'Follow on Instagram',
         github: 'Follow on GitHub',
         linkedin: 'Follow on LinkedIn',
       },
@@ -59,10 +57,8 @@ export const en: UITranslations = {
       ],
       portrait: 'Portrait of Quincy',
       social: {
-        x: 'Follow on X',
-        instagram: 'Follow on Instagram',
-        github: 'Follow on GitHub',
-        linkedin: 'Follow on LinkedIn',
+        github: 'Be a friend on GitHub',
+        linkedin: 'Connect on LinkedIn',
         email: 'Send an email',
       },
     },

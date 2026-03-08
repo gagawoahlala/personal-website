@@ -17,7 +17,7 @@ export const ar: UITranslations = {
     toggle: 'تغيير اللغة',
   },
   footer: {
-    copyright: 'سبنسر شارب. جميع الحقوق محفوظة.',
+    copyright: 'Yikun Huang. جميع الحقوق محفوظة.',
   },
   newsletter: {
     title: 'ابقَ على اطلاع',
@@ -44,8 +44,6 @@ export const ar: UITranslations = {
       headline: 'مهندس برمجيات، محب للجغرافيا ومتحمس لعلم اللغات.',
       bio: 'أنا Quincy، مهندس برمجيات متخصص في الواجهات الأمامية والتطوير الكامل، مقيم في دالاس. أبني تطبيقات للويب، وأهتم بك، مستخدمي.',
       social: {
-        x: 'تابع على X',
-        instagram: 'تابع على Instagram',
         github: 'تابع على GitHub',
         linkedin: 'تابع على LinkedIn',
       },
@@ -59,10 +57,8 @@ export const ar: UITranslations = {
       ],
       portrait: 'صورة Quincy',
       social: {
-        x: 'تابع على X',
-        instagram: 'تابع على Instagram',
-        github: 'تابع على GitHub',
-        linkedin: 'تابع على LinkedIn',
+        github: 'كن صديقاً على GitHub',
+        linkedin: 'تواصل على LinkedIn',
         email: 'إرسال بريد إلكتروني',
       },
     },
