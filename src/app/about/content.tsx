@@ -51,7 +51,7 @@ export default function AboutContent() {
               <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
                 {/* Portrait */}
                 <div className="lg:pl-20 rtl:lg:pl-0 rtl:lg:pr-20">
-                  <div className="max-w-xs px-2.5 lg:max-w-none">
+                  <div className="max-w-xs lg:px-2.5 lg:max-w-none">
                     <picture>
                       <source
                         type="image/webp"
@@ -62,9 +62,6 @@ export default function AboutContent() {
                         src="/about.png"
                         alt={t.pages.about.portrait}
                         className="aspect-square rotate-3 rounded-2xl object-cover object-top dark:brightness-90"
-                        style={{ maxWidth: '26rem' }}
-                        width={832}
-                        height={832}
                       />
                     </picture>
                   </div>

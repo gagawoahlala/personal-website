@@ -49,9 +49,9 @@ function Avatar({ large = false, href = '/' }: { large?: boolean; href?: string 
       }`}
     >
       <img
-        src="/home.png"
+        src="/avatar.webp"
         alt=""
-        className="rounded-full object-cover object-[50%_25%] h-full w-full scale-150"
+        className="rounded-full object-cover object-center h-full w-full"
       />
     </Link>
   )
@@ -235,7 +235,7 @@ export default function Header() {
                           style={{ transform: 'var(--avatar-image-transform)' }}
                         >
                           <Link href="/" aria-label={t.nav.home} className="block h-16 w-16 rounded-full overflow-hidden">
-                            <img src="/home.png" alt="" className="h-16 w-16 rounded-full object-cover object-[50%_25%] scale-150" />
+                            <img src="/avatar.webp" alt="" className="h-16 w-16 rounded-full object-cover object-center" />
                           </Link>
                         </div>
                       </div>
@@ -332,6 +332,25 @@ export default function Header() {
                     {/* Right: language toggle + theme toggle */}
                     <div className="flex items-center justify-end md:flex-1 gap-2">
                       <div className="pointer-events-auto relative">
+                        <svg
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 stroke-zinc-500 fill-none z-10"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          {/* Outer circle */}
+                          <circle cx="12" cy="12" r="9" />
+                          {/* Equator — full horizontal ellipse */}
+                          <path d="M3 12 A9 2 0 0 1 21 12 A9 2 0 0 1 3 12" />
+                          {/* Upper latitude ~30° — front arc only */}
+                          <path d="M4.2 7.5 A7.8 1.5 0 0 0 19.8 7.5" />
+                          {/* Lower latitude ~30° — front arc only */}
+                          <path d="M4.2 16.5 A7.8 1.5 0 0 1 19.8 16.5" />
+                          {/* Central meridian — full vertical ellipse */}
+                          <path d="M12 3 A3.5 9 0 0 1 12 21 A3.5 9 0 0 1 12 3" />
+                        </svg>
                         <select
                           value={locale}
                           onChange={(e) => setLocale(e.target.value as Locale)}
@@ -342,7 +361,7 @@ export default function Header() {
                             }
                           }}
                           aria-label={t.language.toggle}
-                          className="appearance-none rounded-full bg-white/90 pl-3 pr-7 py-2 text-xs font-semibold text-zinc-700 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition cursor-pointer hover:text-teal-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20 dark:hover:text-teal-400 dark:focus-visible:ring-teal-400"
+                          className="appearance-none rounded-full bg-white/90 pl-8 pr-7 py-2 text-xs font-semibold text-zinc-700 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition cursor-pointer hover:text-teal-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20 dark:hover:text-teal-400 dark:focus-visible:ring-teal-400"
                         >
                           {LOCALES.map((l) => (
                             <option key={l} value={l} className="bg-white dark:bg-zinc-800">
