@@ -82,8 +82,8 @@ function MobileMenu({
   useEffect(() => {
     if (isOpen) {
       setMounted(true)
-      let id1: number, id2: number
-      id1 = requestAnimationFrame(() => { id2 = requestAnimationFrame(() => setVisible(true)) })
+      let id2 = 0
+      const id1 = requestAnimationFrame(() => { id2 = requestAnimationFrame(() => setVisible(true)) })
       return () => { cancelAnimationFrame(id1); cancelAnimationFrame(id2) }
     } else {
       setVisible(false)
