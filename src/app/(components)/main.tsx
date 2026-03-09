@@ -7,27 +7,33 @@ import type { UITranslations } from '@/lib/i18n'
 
 type RoleKey = keyof UITranslations['work']['roles']
 
-const workHistory: { company: string; roleKey: RoleKey; start: string; end: string; gradient: string }[] = [
+const workHistory: { company: string; roleKey: RoleKey; start: string; end: string; logo: string; href: string; darkInvert: boolean }[] = [
   {
     company: 'Apple',
     roleKey: 'fullstackSoftwareEngineer',
     start: '2021',
     end: '2024',
-    gradient: 'from-violet-500 to-purple-700',
+    logo: '/logos/apple.svg',
+    href: 'https://www.apple.com',
+    darkInvert: true,
   },
   {
-    company: 'Tiktok',
+    company: 'TikTok',
     roleKey: 'fullstackSoftwareEngineer',
     start: '2020',
     end: '2021',
-    gradient: 'from-rose-400 to-pink-600',
+    logo: '/logos/tiktok.svg',
+    href: 'https://www.tiktok.com',
+    darkInvert: true,
   },
   {
     company: 'MicroStrategy',
     roleKey: 'frontendSoftwareEngineer',
     start: '2018',
     end: '2020',
-    gradient: 'from-sky-400 to-blue-600',
+    logo: '/logos/microstrategy.svg',
+    href: 'https://www.microstrategy.com',
+    darkInvert: false,
   },
 ]
 
@@ -154,33 +160,41 @@ export default function Main() {
                     <span className="ml-3 rtl:ml-0 rtl:mr-3">{t.work.title}</span>
                   </h2>
                   <ol className="mt-6 space-y-4" aria-label={t.work.title}>
-                    {workHistory.map(({ company, roleKey, start, end, gradient }) => (
-                      <li key={company} className="flex gap-4">
-                        <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-                          <div
-                            className={`h-7 w-7 rounded-full bg-gradient-to-br ${gradient}`}
-                            aria-hidden="true"
-                          />
-                        </div>
-                        <dl className="flex flex-auto flex-wrap gap-x-2">
-                          <dt className="sr-only">Company</dt>
-                          <dd className="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                            {company}
-                          </dd>
-                          <dt className="sr-only">Role</dt>
-                          <dd className="text-xs text-zinc-500 dark:text-zinc-400">{t.work.roles[roleKey]}</dd>
-                          <dt className="sr-only">Date</dt>
-                          <dd
-                            className="ml-auto text-xs text-zinc-400 dark:text-zinc-500"
-                            aria-label={`${start} until ${end}`}
-                          >
-                            <time dateTime={start}>{start}</time>
-                            <span aria-hidden="true"> — </span>
-                            <time dateTime={end === 'Present' ? undefined : end}>
-                              {end === 'Present' ? t.work.present : end}
-                            </time>
-                          </dd>
-                        </dl>
+                    {workHistory.map(({ company, roleKey, start, end, logo, href, darkInvert }) => (
+                      <li key={company}>
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group flex gap-4 rounded-lg p-1 -m-1 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition"
+                        >
+                          <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+                            <img
+                              src={logo}
+                              alt={company}
+                              className={`h-7 w-7 object-contain${darkInvert ? ' dark:invert' : ''}`}
+                            />
+                          </div>
+                          <dl className="flex flex-auto flex-wrap gap-x-2">
+                            <dt className="sr-only">Company</dt>
+                            <dd className="w-full flex-none text-sm font-medium text-zinc-900 group-hover:text-teal-500 dark:text-zinc-100 dark:group-hover:text-teal-400 transition-colors">
+                              {company}
+                            </dd>
+                            <dt className="sr-only">Role</dt>
+                            <dd className="text-xs text-zinc-500 dark:text-zinc-400">{t.work.roles[roleKey]}</dd>
+                            <dt className="sr-only">Date</dt>
+                            <dd
+                              className="ml-auto text-xs text-zinc-400 dark:text-zinc-500"
+                              aria-label={`${start} until ${end}`}
+                            >
+                              <time dateTime={start}>{start}</time>
+                              <span aria-hidden="true"> — </span>
+                              <time dateTime={end === 'Present' ? undefined : end}>
+                                {end === 'Present' ? t.work.present : end}
+                              </time>
+                            </dd>
+                          </dl>
+                        </a>
                       </li>
                     ))}
                   </ol>

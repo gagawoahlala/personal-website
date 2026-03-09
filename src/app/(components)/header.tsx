@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useTheme } from './theme-provider'
 import { useLocale, LOCALES, LOCALE_LABELS } from './locale-provider'
 import type { Locale } from '@/lib/i18n'
@@ -44,13 +44,14 @@ function Avatar({ large = false, href = '/' }: { large?: boolean; href?: string 
     <Link
       href={href}
       aria-label="Home"
-      className={`block rounded-full bg-white/90 p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:ring-white/10 ${
+      className={`block rounded-full overflow-hidden bg-white/90 p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:ring-white/10 ${
         large ? 'h-16 w-16' : 'h-9 w-9'
       }`}
     >
-      <div
-        className="rounded-full bg-gradient-to-br from-teal-400 to-violet-600 h-full w-full"
-        aria-hidden="true"
+      <img
+        src="/home.png"
+        alt=""
+        className="rounded-full object-cover object-[50%_25%] h-full w-full scale-150"
       />
     </Link>
   )
@@ -63,6 +64,7 @@ function MobileMenu({
   navLabels,
   closeLabel,
   navigationLabel,
+  triggerRef,
 }: {
   isOpen: boolean
   onClose: () => void
@@ -70,26 +72,80 @@ function MobileMenu({
   navLabels: { href: string; label: string }[]
   closeLabel: string
   navigationLabel: string
+  triggerRef: React.RefObject<HTMLButtonElement | null>
 }) {
-  if (!isOpen) return null
+  const [mounted, setMounted] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const dialogRef = useRef<HTMLDivElement>(null)
+
+  // Mount immediately; defer visible by one frame so the open transition fires
+  useEffect(() => {
+    if (isOpen) {
+      setMounted(true)
+      let id1: number, id2: number
+      id1 = requestAnimationFrame(() => { id2 = requestAnimationFrame(() => setVisible(true)) })
+      return () => { cancelAnimationFrame(id1); cancelAnimationFrame(id2) }
+    } else {
+      setVisible(false)
+      triggerRef.current?.focus()
+      const t = setTimeout(() => setMounted(false), 200)
+      return () => clearTimeout(t)
+    }
+  }, [isOpen, triggerRef])
+
+  // Auto-focus first nav link when opened
+  useEffect(() => {
+    if (!isOpen) return
+    const t = setTimeout(() => {
+      dialogRef.current?.querySelector<HTMLElement>('nav a')?.focus()
+    }, 50)
+    return () => clearTimeout(t)
+  }, [isOpen])
+
+  // Focus trap + Escape key
+  useEffect(() => {
+    if (!isOpen) return
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') { onClose(); return }
+      if (e.key !== 'Tab') return
+      const focusables = Array.from(
+        dialogRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        ) ?? []
+      )
+      if (!focusables.length) return
+      const first = focusables[0], last = focusables[focusables.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus()
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen, onClose])
+
+  if (!mounted) return null
+
   return (
     <>
       <div
-        className="fixed inset-0 z-40 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80"
+        className={`fixed inset-0 z-40 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80 transition-opacity duration-150 ${visible ? 'opacity-100' : 'opacity-0'}`}
         onClick={onClose}
         aria-hidden="true"
       />
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-label={navigationLabel}
-        className="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800"
+        className={`fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800 transition-all duration-200 ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
       >
         <div className="flex flex-row-reverse items-center justify-between">
           <button
             aria-label={closeLabel}
             onClick={onClose}
-            className="-m-1 p-1"
+            className="-m-1 p-1 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
           >
             <svg
               viewBox="0 0 24 24"
@@ -115,7 +171,7 @@ function MobileMenu({
                 <Link
                   href={href}
                   onClick={onClose}
-                  className={`block py-2 ${pathname === href ? 'text-teal-500' : ''}`}
+                  className={`block py-2 focus-visible:outline-none focus-visible:text-teal-500 ${pathname === href ? 'text-teal-500' : ''}`}
                 >
                   {label}
                 </Link>
@@ -134,17 +190,13 @@ export default function Header() {
   const { theme, toggleTheme } = useTheme()
   const { t, locale, setLocale } = useLocale()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
 
   const navLabels = [
     { href: '/about', label: t.nav.about },
     { href: '/projects', label: t.nav.projects },
   ]
 
-  function cycleLocale() {
-    const idx = LOCALES.indexOf(locale)
-    const next: Locale = LOCALES[(idx + 1) % LOCALES.length]
-    setLocale(next)
-  }
 
   return (
     <>
@@ -182,8 +234,8 @@ export default function Header() {
                           className="block h-16 w-16 origin-left pointer-events-auto"
                           style={{ transform: 'var(--avatar-image-transform)' }}
                         >
-                          <Link href="/" aria-label={t.nav.home} className="block h-16 w-16 rounded-full">
-                            <div className="h-16 w-16 rounded-full bg-gradient-to-br from-teal-400 to-violet-600" aria-hidden="true" />
+                          <Link href="/" aria-label={t.nav.home} className="block h-16 w-16 rounded-full overflow-hidden">
+                            <img src="/home.png" alt="" className="h-16 w-16 rounded-full object-cover object-[50%_25%] scale-150" />
                           </Link>
                         </div>
                       </div>
@@ -224,6 +276,7 @@ export default function Header() {
                       {/* Mobile menu button */}
                       <div className="pointer-events-auto md:hidden">
                         <button
+                          ref={menuButtonRef}
                           type="button"
                           aria-expanded={mobileMenuOpen}
                           aria-label={t.nav.navigation}
@@ -277,16 +330,33 @@ export default function Header() {
                     </div>
 
                     {/* Right: language toggle + theme toggle */}
-                    <div className="flex justify-end md:flex-1 gap-2">
-                      <div className="pointer-events-auto">
-                        <button
-                          type="button"
+                    <div className="flex items-center justify-end md:flex-1 gap-2">
+                      <div className="pointer-events-auto relative">
+                        <select
+                          value={locale}
+                          onChange={(e) => setLocale(e.target.value as Locale)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault()
+                              e.currentTarget.showPicker?.()
+                            }
+                          }}
                           aria-label={t.language.toggle}
-                          onClick={cycleLocale}
-                          className="rounded-full bg-white/90 px-3 py-2 text-xs font-semibold text-zinc-700 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition hover:text-teal-500 dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20 dark:hover:text-teal-400"
+                          className="appearance-none rounded-full bg-white/90 pl-3 pr-7 py-2 text-xs font-semibold text-zinc-700 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition cursor-pointer hover:text-teal-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20 dark:hover:text-teal-400 dark:focus-visible:ring-teal-400"
                         >
-                          {LOCALE_LABELS[locale]}
-                        </button>
+                          {LOCALES.map((l) => (
+                            <option key={l} value={l} className="bg-white dark:bg-zinc-800">
+                              {LOCALE_LABELS[l]}
+                            </option>
+                          ))}
+                        </select>
+                        <svg
+                          viewBox="0 0 8 6"
+                          aria-hidden="true"
+                          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-auto w-2 stroke-zinc-500"
+                        >
+                          <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                       </div>
                       <div className="pointer-events-auto">
                         <button
@@ -315,6 +385,7 @@ export default function Header() {
         navLabels={navLabels}
         closeLabel={t.nav.close}
         navigationLabel={t.nav.navigation}
+        triggerRef={menuButtonRef}
       />
     </>
   )

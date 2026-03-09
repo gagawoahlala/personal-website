@@ -8,11 +8,11 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    name: 'Planetaria',
+    name: 'Tiktok Help Center',
     description:
-      'Creating technology to empower civilians to explore space on their own terms.',
-    link: 'https://planetaria.tech',
-    linkLabel: 'planetaria.tech',
+      'Platform for users to find answers to their questions about using Tiktok, and for support agents to manage and respond to user inquiries.',
+    link: 'https://www.tiktok.com/support',
+    linkLabel: 'Tiktok Help Center',
     gradient: 'from-violet-500 to-purple-700',
   },
   {

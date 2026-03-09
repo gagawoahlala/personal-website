@@ -52,12 +52,21 @@ export default function AboutContent() {
                 {/* Portrait */}
                 <div className="lg:pl-20 rtl:lg:pl-0 rtl:lg:pr-20">
                   <div className="max-w-xs px-2.5 lg:max-w-none">
-                    <div
-                      className="aspect-square rotate-3 rounded-2xl bg-gradient-to-br from-teal-400 via-violet-500 to-purple-700 object-cover dark:bg-zinc-800"
-                      style={{ maxWidth: '26rem' }}
-                      role="img"
-                      aria-label={t.pages.about.portrait}
-                    />
+                    <picture>
+                      <source
+                        type="image/webp"
+                        srcSet="/portrait-320.webp 320w, /portrait-480.webp 480w, /portrait-640.webp 640w, /portrait-832.webp 832w"
+                        sizes="(max-width: 1023px) 320px, 26rem"
+                      />
+                      <img
+                        src="/about.png"
+                        alt={t.pages.about.portrait}
+                        className="aspect-square rotate-3 rounded-2xl object-cover object-top dark:brightness-90"
+                        style={{ maxWidth: '26rem' }}
+                        width={832}
+                        height={832}
+                      />
+                    </picture>
                   </div>
                 </div>
 

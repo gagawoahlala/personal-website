@@ -4,7 +4,7 @@ import Main from './(components)/main'
 import HomeHero from './(components)/home-hero'
 
 export const metadata: Metadata = {
-  title: 'Quincy - Senior Software engineer, Geography Lover and Linguistic Enthusiast',
+  title: 'Quincy Huang, Quincy Alexandre, Yikun Huang- Senior Software engineer, Geography Lover and Linguistic Enthusiast',
 }
 
 export default function HomePage() {
