@@ -114,31 +114,31 @@ export default function Main() {
                 </h2>
                 <ul className="mt-6 space-y-4" aria-label={t.nav.projects}>
                   {projects.slice(0, 4).map((project) => (
-                    <li key={project.name} className="flex gap-4">
-                      <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-                        <div
-                          className={`h-7 w-7 rounded-full bg-gradient-to-br ${project.gradient}`}
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <dl className="flex flex-auto flex-wrap gap-x-2">
-                        <dt className="sr-only">Project</dt>
-                        <dd className="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                          <a
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:text-teal-500 dark:hover:text-teal-400"
-                          >
+                    <li key={project.name}>
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex gap-4 rounded-lg p-1 -m-1 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition"
+                      >
+                        <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+                          <div
+                            className={`h-7 w-7 rounded-full bg-gradient-to-br ${project.gradient}`}
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <dl className="flex flex-auto flex-wrap gap-x-2">
+                          <dt className="sr-only">Project</dt>
+                          <dd className="w-full flex-none text-sm font-medium text-zinc-900 group-hover:text-teal-500 dark:text-zinc-100 dark:group-hover:text-teal-400 transition-colors">
                             {project.name}
-                          </a>
-                        </dd>
-                        <dt className="sr-only">Link</dt>
-                        <dd className="flex items-center text-xs text-zinc-500 dark:text-zinc-400">
-                          <LinkIcon className="mr-1 rtl:mr-0 rtl:ml-1 h-3 w-3 flex-none fill-zinc-400 dark:fill-zinc-500" />
-                          {project.linkLabel}
-                        </dd>
-                      </dl>
+                          </dd>
+                          <dt className="sr-only">Link</dt>
+                          <dd className="flex items-center text-xs text-zinc-500 dark:text-zinc-400">
+                            <LinkIcon className="mr-1 rtl:mr-0 rtl:ml-1 h-3 w-3 flex-none fill-zinc-400 dark:fill-zinc-500" />
+                            {project.linkLabel}
+                          </dd>
+                        </dl>
+                      </a>
                     </li>
                   ))}
                 </ul>

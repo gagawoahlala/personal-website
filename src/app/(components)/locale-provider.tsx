@@ -15,15 +15,27 @@ const LocaleContext = createContext<{
   t: dictionaries.en,
 })
 
+function detectBrowserLocale(): Locale {
+  const languages = navigator.languages?.length ? navigator.languages : [navigator.language]
+  for (const lang of languages) {
+    const tag = lang.toLowerCase()
+    // Exact match first (e.g. 'fr', 'zh')
+    if (LOCALES.includes(tag as Locale)) return tag as Locale
+    // Primary subtag match (e.g. 'fr-CA' → 'fr', 'zh-TW' → 'zh')
+    const primary = tag.split('-')[0]
+    if (LOCALES.includes(primary as Locale)) return primary as Locale
+  }
+  return 'en'
+}
+
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>('en')
 
   useEffect(() => {
     const stored = localStorage.getItem('locale') as Locale | null
-    if (stored && LOCALES.includes(stored)) {
-      applyLocale(stored)
-      setLocaleState(stored)
-    }
+    const resolved = stored && LOCALES.includes(stored) ? stored : detectBrowserLocale()
+    applyLocale(resolved)
+    setLocaleState(resolved)
   }, [])
 
   function applyLocale(l: Locale) {
