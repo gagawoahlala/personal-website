@@ -32,19 +32,11 @@ export const projects: Project[] = [
     gradient: 'from-orange-400 to-red-600',
   },
   {
-    name: 'cosmOS',
+    name: 'Lazy Susan',
     description:
-      'The operating system that powers our Planetaria space shuttles.',
+      'A chrome extension that allows users to create their job-specific resume and cover letter',
     link: 'https://github.com',
-    linkLabel: 'github.com',
+    linkLabel: 'Coming soon onto chrom extensions store',
     gradient: 'from-emerald-400 to-teal-600',
-  },
-  {
-    name: 'OpenShuttle',
-    description:
-      'The schematics for the first rocket I designed that successfully made it to orbit.',
-    link: 'https://github.com',
-    linkLabel: 'github.com',
-    gradient: 'from-amber-400 to-orange-600',
   },
 ]

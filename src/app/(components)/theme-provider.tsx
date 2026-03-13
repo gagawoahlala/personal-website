@@ -18,10 +18,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       setTheme(stored)
       applyTheme(stored)
     } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      const initial: Theme = prefersDark ? 'dark' : 'light'
+      const mq = window.matchMedia('(prefers-color-scheme: dark)')
+      const initial: Theme = mq.matches ? 'dark' : 'light'
       setTheme(initial)
       applyTheme(initial)
+
+      const listener = (e: MediaQueryListEvent) => {
+        if (!localStorage.getItem('theme')) {
+          const next: Theme = e.matches ? 'dark' : 'light'
+          setTheme(next)
+          applyTheme(next)
+        }
+      }
+      mq.addEventListener('change', listener)
+      return () => mq.removeEventListener('change', listener)
     }
   }, [])
 
