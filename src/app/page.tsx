@@ -12,9 +12,13 @@ export default function HomePage() {
     <>
       <div className="flex-none" style={{ height: 'var(--content-offset)' }} aria-hidden="true" />
       <main className="flex-auto">
-        <HomeHero />
+        <div className="pb-40 relative bg-white dark:bg-zinc-900 [mask-image:linear-gradient(to_bottom,black_70%,transparent)]">
+          <HomeHero />
+        </div>
         <Carousel />
-        <Main />
+        <div className="pt-40 relative bg-white dark:bg-zinc-900 [mask-image:linear-gradient(to_top,black_70%,transparent)]">
+          <Main />
+        </div>
       </main>
     </>
   )

@@ -28,6 +28,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
           const next: Theme = e.matches ? 'dark' : 'light'
           setTheme(next)
           applyTheme(next)
+          postThemeToIframe(next)
         }
       }
       mq.addEventListener('change', listener)
@@ -46,11 +47,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  function postThemeToIframe(t: Theme) {
+    const iframe = document.getElementById('journey-animation') as HTMLIFrameElement | null
+    iframe?.contentWindow?.postMessage({ type: 'theme-change', theme: t }, '*')
+  }
+
   function toggleTheme() {
     const next: Theme = theme === 'dark' ? 'light' : 'dark'
     setTheme(next)
     applyTheme(next)
     localStorage.setItem('theme', next)
+    postThemeToIframe(next)
   }
 
   return (

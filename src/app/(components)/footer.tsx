@@ -1,10 +1,12 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useLocale } from './locale-provider'
 
 export default function Footer() {
   const { t } = useLocale()
+  const isHome = usePathname() === '/'
 
   const footerLinks = [
     { href: '/about', label: t.nav.about },
@@ -12,7 +14,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="mt-32 flex-none">
+    <footer className={`pt-32 flex-none${!isHome ? '' : ' bg-white dark:bg-zinc-900'}`}>
       <div className="sm:px-8">
         <div className="mx-auto w-full max-w-7xl lg:px-8">
           <div className="border-t border-zinc-100 pt-10 pb-16 dark:border-zinc-700/40">

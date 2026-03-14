@@ -201,7 +201,7 @@ export default function Header() {
   return (
     <>
       <header
-        className="pointer-events-none relative z-50 flex flex-none flex-col"
+        className={`pointer-events-none relative z-50 flex flex-none flex-col${!isHomePage ? '' : ' bg-white dark:bg-zinc-900'}`}
         style={{
           height: 'var(--header-height)',
           marginBottom: 'var(--header-mb)',
