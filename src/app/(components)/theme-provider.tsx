@@ -49,7 +49,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   function postThemeToIframe(t: Theme) {
     const iframe = document.getElementById('journey-animation') as HTMLIFrameElement | null
-    iframe?.contentWindow?.postMessage({ type: 'theme-change', theme: t }, '*')
+    iframe?.contentWindow?.postMessage({ type: 'theme-change', theme: t }, 'https://personal-website-animation.s3.us-east-1.amazonaws.com')
   }
 
   function toggleTheme() {

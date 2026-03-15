@@ -35,6 +35,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: `(function(){var s=localStorage.getItem('theme');if(s==='dark'||s==='light'){document.documentElement.classList.add(s);document.documentElement.classList.remove(s==='dark'?'light':'dark');}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark');}})();` }} />
+
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-7LH323JSKW" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
